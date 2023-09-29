@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+Route::get('/count', [IndexController::class, 'count']);
 Route::get('/test', function (){
     echo 'Hello World...!';
 });

@@ -23,4 +23,37 @@ class IndexController extends Controller
         // dump($response['hint']['hint']);
 
     }
+
+    public function count()
+    {
+        $val = 'sina';
+        $temp_len = strlen($val)-1;
+        for ($i = 0 ; $i <= strlen($val)-1 ; $i++) {
+
+            if($i++ == $temp_len){
+                break;
+            }else{
+                $temp = $val[$i];
+                $val[$i] = $val[$temp_len];
+                $val[$temp_len] = $val[$temp];
+                $temp_len--;
+            }
+
+        }
+
+        dd($val);
+
+        // function set($n = 1){
+            //Count 1,3,5,7,9,...
+        //     $count = 142;
+        //     if ($n < $count) {
+        //         echo $n.',';
+        //         $n = $n + 2;
+        //         set($n);
+        //     }
+        // }
+
+        // set();
+
+    }
 }
