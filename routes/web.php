@@ -19,4 +19,4 @@ Route::get('/count', [IndexController::class, 'count']);
 Route::get('/test', function (){
     echo 'Hello World...!';
 });
-Route::get('/elasticsearch', [IndexController::class, 'index']);
+Route::post('/elasticsearch', [IndexController::class, 'index'])->name('elsticsearch');

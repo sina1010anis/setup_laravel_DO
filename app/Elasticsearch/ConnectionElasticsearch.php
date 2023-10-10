@@ -16,7 +16,10 @@ class ConnectionElasticsearch
 
         // Connect to elasticsearch using two variables ELASTICSEARCH_USERNAME and ELASTICSEARCH_PASSWORD
         $this->connetion_data = ClientBuilder::create()
-            ->setBasicAuthentication(env('ELASTICSEARCH_USERNAME'), env('ELASTICSEARCH_PASSWORD'));
+            ->setBasicAuthentication(
+                env('ELASTICSEARCH_USERNAME', 'elastic'),
+                env('ELASTICSEARCH_PASSWORD', 'sina1010anis')
+            );
 
     }
 
