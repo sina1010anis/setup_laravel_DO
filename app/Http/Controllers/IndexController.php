@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Database\Factories\ProductFactory;
 use Illuminate\Http\Request;
 use Elastic\Elasticsearch\ClientBuilder;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
+use App\Models\Product;
 use Elastic\Elasticsearch\Client;
 
 class IndexController extends Controller
@@ -14,8 +16,9 @@ class IndexController extends Controller
         //$elastic->connctionIndex('my_test', ['brand' => 'KMC', 'model' => 'J7', 'price' => 9870]);
         // for ($i = 0; $i <= 100 ; $i++) {
         // }
-        // $elastic->connctionIndex('products', ['name' => fake()->name, 'price' => fake()->numerify]);
-
+        // for ($i = 0 ; $i <= 100 ; $i++) {
+        //     $elastic->connctionIndex('products', ['name' => fake()->name, 'price' => fake()->numerify]);
+        // }
         // $res = $elastic->connectionWhere([], 'products')->connctionSearch(true, true);
         // dd($res);
 
@@ -27,8 +30,9 @@ class IndexController extends Controller
 
         //---------------------------------------
 
-        $res = $elastic->connectionWhere([['name' => $request->name]], 'products')->connctionSearch(true, true);
-        //dd($res[0]['name']);
+        $res = $elastic->connectionWhere([], 'products', 5000)->connctionSearch(true, true);
+        //$res = Product::get();
+        //dd($res);
         return view('welcome', ['datas' => $res]);
 
 

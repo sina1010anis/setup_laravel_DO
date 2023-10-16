@@ -67,13 +67,14 @@ class ConnectionElasticsearch
 
     }
 
-    public function connectionWhere(array $wheres = [], string $index = '_all')
+    public function connectionWhere(array $wheres = [], string $index = '_all', int $size = 10)
     {
         // $wheres = [['brand' => 'BMW'], ['model' => '730i']]
-        $this->where_data = ($wheres == []) ? ['index' => $index] : [
+        $this->where_data = ($wheres == []) ? ['index' => $index,'body' => ['size' => $size]] : [
             'index' => $index,
             'body' => [
-                'query' => $this->forDatas($wheres, 'match')
+                'query' => $this->forDatas($wheres, 'match'),
+                'size' => $size
             ]
         ];
         return $this;
