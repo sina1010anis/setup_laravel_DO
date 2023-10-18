@@ -8,6 +8,7 @@ use Elastic\Elasticsearch\ClientBuilder;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
 use Elastic\Elasticsearch\Client;
+use Illuminate\Support\Benchmark;
 
 class IndexController extends Controller
 {
@@ -29,18 +30,20 @@ class IndexController extends Controller
         // dump($response['hint']['hint']);
 
         //---------------------------------------
-
-        $res = $elastic->connectionWhere([], 'products', 5000)->connctionSearch(true, true);
-        //$res = Product::get();
-        //dd($res);
-        return view('welcome', ['datas' => $res]);
+        //$res = $elastic->connectionWhereOne([['name' => $request->txt]], 'products', 5000)->connctionSearch(true, true);
+        $res = Product::where('name', 'LIKE', '%'.$request->txt.'%')->get();
+        return response()->json($res, 200);
 
 
 
     }
 
-    public function count()
+    public function count(Elastic $elastic)
     {
+        Benchmark::dd([
+            'Elasticesearch' => fn()=> $elastic->connectionWhereOne([['name' => 'dr.']], 'products', 5000)->connctionSearch(true, true),
+            'Mysql' => fn()=> Product::where('name', 'LIKE', 'dr.'.'%')->get()
+        ]);
         $val = 'sina';
         $temp_len = strlen($val)-1;
         for ($i = 0 ; $i <= strlen($val)-1 ; $i++) {
