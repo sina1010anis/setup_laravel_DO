@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Database\Factories\ProductFactory;
 use Illuminate\Http\Request;
-use Elastic\Elasticsearch\ClientBuilder;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
-use Elastic\Elasticsearch\Client;
+use App\Pattern\AbstractFactory\Core\ElasticDB;
+use App\Pattern\AbstractFactory\Core\MongoDB;
+use App\Pattern\AbstractFactory\Core\MysqlDB;
+use App\Pattern\Builder\Core\ConnectionDBBuilder;
+use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
+use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
 use Illuminate\Support\Benchmark;
 
 class IndexController extends Controller
@@ -73,5 +76,16 @@ class IndexController extends Controller
 
         // set();
 
+    }
+
+    public function absf (MysqlDB $mysqlDB, MongoDB $mongoDB, ElasticDB $elasticDB)
+    {
+        dd($mysqlDB->createUpdate()->Sub());
+    }
+
+    public function builder()
+    {
+        $connection = new ConnectionDBBuilder();
+        $connection->build(new DatabaseMongoDB());
     }
 }

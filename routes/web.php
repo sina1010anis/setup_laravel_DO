@@ -20,3 +20,6 @@ Route::get('/test', function (){
     echo 'Hello World...!';
 });
 Route::post('/elasticsearch', [IndexController::class, 'index'])->name('elsticsearch');
+
+Route::get('/absf', [IndexController::class,'absf']);
+Route::get('/builder', [IndexController::class,'builder']);
