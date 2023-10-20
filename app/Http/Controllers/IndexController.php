@@ -14,6 +14,9 @@ use App\Pattern\Builder\Core\ConnectionDBBuilder;
 use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
 use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
+use App\Pattern\FactoryMethod\Core\FactoryConnect;
+use App\Pattern\FactoryMethod\Core\MongoDBConnection;
+use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use Illuminate\Support\Benchmark;
 
 class IndexController extends Controller
@@ -93,5 +96,9 @@ class IndexController extends Controller
         $buy_product = new ProductBuy();
         $product = new BuyProduct();
         return $buy_product->userVip($product);
+    }
+    public function factory (FactoryConnect $factoryConnect, MysqlConnection $mongoDBConnection)
+    {
+        return $factoryConnect->run($mongoDBConnection);
     }
 }

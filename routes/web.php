@@ -23,3 +23,4 @@ Route::post('/elasticsearch', [IndexController::class, 'index'])->name('elsticse
 
 Route::get('/absf', [IndexController::class,'absf']);
 Route::get('/builder', [IndexController::class,'builder']);
+Route::get('/factory', [IndexController::class,'factory']);
