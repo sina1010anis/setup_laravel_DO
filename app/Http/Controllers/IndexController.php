@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Pattern\Builder\Core\BuyProduct;
+use App\Pattern\Builder\Core\BuyProductUser;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
@@ -9,6 +11,7 @@ use App\Pattern\AbstractFactory\Core\ElasticDB;
 use App\Pattern\AbstractFactory\Core\MongoDB;
 use App\Pattern\AbstractFactory\Core\MysqlDB;
 use App\Pattern\Builder\Core\ConnectionDBBuilder;
+use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
 use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
 use Illuminate\Support\Benchmark;
@@ -85,7 +88,10 @@ class IndexController extends Controller
 
     public function builder()
     {
-        $connection = new ConnectionDBBuilder();
-        $connection->build(new DatabaseMongoDB());
+        // $connection = new ConnectionDBBuilder();
+        // $connection->build(new DatabaseMongoDB());
+        $buy_product = new ProductBuy();
+        $product = new BuyProduct();
+        return $buy_product->userVip($product);
     }
 }
