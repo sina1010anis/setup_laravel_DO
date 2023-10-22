@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
+use App\Pattern\Prototype\Core\CarRead;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
@@ -100,5 +101,18 @@ class IndexController extends Controller
     public function factory (FactoryConnect $factoryConnect, MysqlConnection $mongoDBConnection)
     {
         return $factoryConnect->run($mongoDBConnection);
+    }
+
+    public function prototype ()
+    {
+        $car_1 = new CarRead('BMW', 'red', 6500);
+        var_dump($car_1->getModel().'<br>');
+        $car_1->setModel('Benz');
+        var_dump($car_1->getModel().'<br>');
+        $car_2 = clone $car_1;
+        var_dump($car_2->getModel().'<br>');
+        $car_1->setModel('BMW');
+        $car_2_copy = clone $car_1;
+        var_dump('car_2_copy => '.$car_2_copy->getModel().'<br>');
     }
 }
