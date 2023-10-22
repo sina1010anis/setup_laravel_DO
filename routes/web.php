@@ -25,3 +25,4 @@ Route::get('/absf', [IndexController::class,'absf']);
 Route::get('/builder', [IndexController::class,'builder']);
 Route::get('/factory', [IndexController::class,'factory']);
 Route::get('/prototype', [IndexController::class,'prototype']);
+Route::get('/p1', [IndexController::class,'p1']);

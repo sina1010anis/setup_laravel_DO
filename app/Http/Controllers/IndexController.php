@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
+use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
+use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
@@ -18,6 +20,8 @@ use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MongoDBConnection;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
+use App\Pattern\P1\Core\Abs\Core\MysqlAbs;
+use App\Pattern\P1\Core\Builder\Core\MongoDBBuild;
 use Illuminate\Support\Benchmark;
 
 class IndexController extends Controller
@@ -114,5 +118,14 @@ class IndexController extends Controller
         $car_1->setModel('BMW');
         $car_2_copy = clone $car_1;
         var_dump('car_2_copy => '.$car_2_copy->getModel().'<br>');
+    }
+
+    public function p1 ()
+    {
+        $databse = new ConncetionDB('users', 'id = 5', 8);
+        $mysql = $databse->create('mongodb');
+        dump($mysql->buildDelete());
+        dump($mysql::class);
+        $databse_2 = clone $databse;
     }
 }
