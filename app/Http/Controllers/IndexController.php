@@ -23,6 +23,7 @@ use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\P1\Core\Abs\Core\MysqlAbs;
 use App\Pattern\P1\Core\Builder\Core\MongoDBBuild;
 use Illuminate\Support\Benchmark;
+use Spatie\Sitemap\SitemapGenerator;
 
 class IndexController extends Controller
 {
@@ -127,5 +128,10 @@ class IndexController extends Controller
         dump($mysql->buildDelete());
         dump($mysql::class);
         $databse_2 = clone $databse;
+    }
+
+    public function sitemap ()
+    {
+        SitemapGenerator::create('https://www.digikala.com/')->writeToFile(public_path('/map/'.time().'.xml'));
     }
 }
