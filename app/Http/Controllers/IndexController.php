@@ -7,6 +7,7 @@ use App\Pattern\Builder\Core\BuyProductUser;
 use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
+use App\Pattern\SimpelFactory\Core\FactoryDB;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
@@ -133,5 +134,12 @@ class IndexController extends Controller
     public function sitemap ()
     {
         SitemapGenerator::create('https://www.digikala.com/')->writeToFile(public_path('/map/'.time().'.xml'));
+    }
+
+    public function simpelfactory ()
+    {
+        $simpel_fatory = new FactoryDB();
+        $mysql = $simpel_fatory->factory('Mysql');
+        echo $mysql->connection();
     }
 }

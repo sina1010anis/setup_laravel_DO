@@ -27,3 +27,4 @@ Route::get('/factory', [IndexController::class,'factory']);
 Route::get('/prototype', [IndexController::class,'prototype']);
 Route::get('/p1', [IndexController::class,'p1']);
 Route::get('/sitemap', [IndexController::class,'sitemap']);
+Route::get('/simpelfactory', [IndexController::class,'simpelfactory']);
