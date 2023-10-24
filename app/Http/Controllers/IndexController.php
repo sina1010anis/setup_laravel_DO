@@ -23,6 +23,7 @@ use App\Pattern\FactoryMethod\Core\MongoDBConnection;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\P1\Core\Abs\Core\MysqlAbs;
 use App\Pattern\P1\Core\Builder\Core\MongoDBBuild;
+use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use Illuminate\Support\Benchmark;
 use Spatie\Sitemap\SitemapGenerator;
 
@@ -141,5 +142,11 @@ class IndexController extends Controller
         $simpel_fatory = new FactoryDB();
         $mysql = $simpel_fatory->factory('Mysql');
         echo $mysql->connection();
+    }
+
+    public function singelton ()
+    {
+        $connection  = CoreMysqlConnection::setupIns();
+        return $connection->checkConnection();
     }
 }
