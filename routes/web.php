@@ -29,3 +29,4 @@ Route::get('/p1', [IndexController::class,'p1']);
 Route::get('/sitemap', [IndexController::class,'sitemap']);
 Route::get('/simpelfactory', [IndexController::class,'simpelfactory']);
 Route::get('/singelton', [IndexController::class,'singelton']);
+Route::get('/staticfactory', [IndexController::class,'staticfactory']);

@@ -5,6 +5,7 @@ namespace App\Pattern\Singelton\Core;
 class MysqlConnection
 {
     private static $ins = null;
+    public $count_number = 0;
 
     private function __construct (){}
 
@@ -18,6 +19,19 @@ class MysqlConnection
 
     public function checkConnection ()
     {
-        dd('Good Connection ...!');
+        return 'Good Connection ...!';
+    }
+
+    public function count()
+    {
+        $this->count_number++;
+    }
+
+    /**
+     * Get the value of count_number
+     */
+    public function getCountNumber()
+    {
+        return $this->count_number;
     }
 }

@@ -24,6 +24,8 @@ use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\P1\Core\Abs\Core\MysqlAbs;
 use App\Pattern\P1\Core\Builder\Core\MongoDBBuild;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
+use App\Pattern\StaticFactory\Core\StaticFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Support\Benchmark;
 use Spatie\Sitemap\SitemapGenerator;
 
@@ -147,6 +149,14 @@ class IndexController extends Controller
     public function singelton ()
     {
         $connection  = CoreMysqlConnection::setupIns();
-        return $connection->checkConnection();
+        $connection->count();
+        $connection_2  = CoreMysqlConnection::setupIns();
+        echo($connection_2->getCountNumber());
+    }
+
+    public function staticfactory ()
+    {
+        //dd(UserFactory::new()->make());
+        return StaticFactory::factory('BMW')->model();
     }
 }
