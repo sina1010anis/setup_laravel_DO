@@ -20,7 +20,7 @@ Route::get('/test', function (){
     echo 'Hello World...!';
 });
 Route::post('/elasticsearch', [IndexController::class, 'index'])->name('elsticsearch');
-
+// ********************* Creational **************************** //
 Route::get('/absf', [IndexController::class,'absf']);
 Route::get('/builder', [IndexController::class,'builder']);
 Route::get('/factory', [IndexController::class,'factory']);
@@ -30,3 +30,5 @@ Route::get('/sitemap', [IndexController::class,'sitemap']);
 Route::get('/simpelfactory', [IndexController::class,'simpelfactory']);
 Route::get('/singelton', [IndexController::class,'singelton']);
 Route::get('/staticfactory', [IndexController::class,'staticfactory']);
+// *********************  **************************** //
+Route::get('/adapter', [IndexController::class,'adapter']);

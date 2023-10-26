@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
 use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
@@ -14,6 +15,7 @@ use App\Models\Product;
 use App\Pattern\AbstractFactory\Core\ElasticDB;
 use App\Pattern\AbstractFactory\Core\MongoDB;
 use App\Pattern\AbstractFactory\Core\MysqlDB;
+use App\Pattern\Adapter\Core\EmailMessageAdpter;
 use App\Pattern\Builder\Core\ConnectionDBBuilder;
 use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
@@ -158,5 +160,13 @@ class IndexController extends Controller
     {
         //dd(UserFactory::new()->make());
         return StaticFactory::factory('BMW')->model();
+    }
+
+    public function adapter()
+    {
+        $snederSMS = new SMSMessageAdpter('09395231890', 'hi...!(SMS)');
+        $snederEmail = new EmailMessageAdpter('sina1010anis@gmail.com', 'hi...!(Email)');
+        dump($snederSMS->send());
+        dump($snederEmail->send());
     }
 }
