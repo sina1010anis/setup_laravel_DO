@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
+use App\Pattern\ConnectPayment\Connect\IDPay\Core\IDPay;
+use App\Pattern\ConnectPayment\Connect\PayIr\Core\PayIr;
 use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
@@ -20,6 +22,9 @@ use App\Pattern\Builder\Core\ConnectionDBBuilder;
 use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
 use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
+use App\Pattern\ConnectPayment\Payment\Core\IDPayAdapter;
+use App\Pattern\ConnectPayment\Payment\Core\PayIrAdapter;
+use App\Pattern\ConnectPayment\Payment\Core\Payment;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MongoDBConnection;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
@@ -29,10 +34,29 @@ use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Database\Factories\UserFactory;
 use Illuminate\Support\Benchmark;
+use Illuminate\Support\Facades\Http;
 use Spatie\Sitemap\SitemapGenerator;
 
 class IndexController extends Controller
 {
+    public function test2()
+    {
+        // $id_pay = new IDPay(['order_id' => 101, 'id' => '902a4d3be8b37ad295d75fef9f7beacb']);
+        // return $id_pay->sendPay();
+    }
+    public function test()
+    {
+        $params_pay_ir = ['api' => 'YOUR-API-KEY', 'amount' => 98000, 'redirect' => 'http://localhost:8000/test-2', 'token' => 987556];
+        $params_id_pay = ['order_id' => 101, 'amount' => 98000, 'desc' => 'توضیحات پرداخت', 'callback' => 'http://localhost:8000/test-2'];
+
+        // $id_pay = new IDPayAdapter($params_id_pay);
+        // return $id_pay->payment();
+
+        $factory_payment = Payment::factory('idpay', $params_id_pay);
+        dd($factory_payment->payment());
+
+
+    }
     public function index(Request $request ,Elastic $elastic)
     {
         //$elastic->connctionIndex('my_test', ['brand' => 'KMC', 'model' => 'J7', 'price' => 9870]);

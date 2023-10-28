@@ -1,10 +1,9 @@
-<?php  
+<?php
 
 namespace Pattern;
 
 class Test {
-
-    public function Sub() : string 
+    public function Sub() : string
     {
         return 'Say Hello';
     }

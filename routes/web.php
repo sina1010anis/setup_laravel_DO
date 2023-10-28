@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 Route::get('/count', [IndexController::class, 'count']);
-Route::get('/test', function (){
-    echo 'Hello World...!';
-});
+Route::get('/test', [IndexController::class,'test']);
+Route::post('/test-2', [IndexController::class,'test2']);
 Route::post('/elasticsearch', [IndexController::class, 'index'])->name('elsticsearch');
 // ********************* Creational **************************** //
 Route::get('/absf', [IndexController::class,'absf']);
