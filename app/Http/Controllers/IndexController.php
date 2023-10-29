@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pattern\Adapter\Core\SMSMessageAdpter;
+use App\Pattern\Bridge\Core\BMW;
+use App\Pattern\Bridge\Core\Red;
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
 use App\Pattern\ConnectPayment\Connect\IDPay\Core\IDPay;
@@ -18,10 +20,14 @@ use App\Pattern\AbstractFactory\Core\ElasticDB;
 use App\Pattern\AbstractFactory\Core\MongoDB;
 use App\Pattern\AbstractFactory\Core\MysqlDB;
 use App\Pattern\Adapter\Core\EmailMessageAdpter;
+use App\Pattern\Bridge\Core\Benz;
+use App\Pattern\Bridge\Core\Green;
 use App\Pattern\Builder\Core\ConnectionDBBuilder;
 use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
 use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
+use App\Pattern\Composite\Core\DownMenu;
+use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\ConnectPayment\Payment\Core\IDPayAdapter;
 use App\Pattern\ConnectPayment\Payment\Core\PayIrAdapter;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
@@ -36,8 +42,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Http;
 use Spatie\Sitemap\SitemapGenerator;
-
-class IndexController extends Controller
+ class IndexController extends Controller
 {
     public function test2()
     {
@@ -145,7 +150,7 @@ class IndexController extends Controller
         $car_1->setModel('Benz');
         var_dump($car_1->getModel().'<br>');
         $car_2 = clone $car_1;
-        var_dump($car_2->getModel().'<br>');
+        var_dump($car_2->getPrice().'<br>');
         $car_1->setModel('BMW');
         $car_2_copy = clone $car_1;
         var_dump('car_2_copy => '.$car_2_copy->getModel().'<br>');
@@ -192,5 +197,30 @@ class IndexController extends Controller
         $snederEmail = new EmailMessageAdpter('sina1010anis@gmail.com', 'hi...!(Email)');
         dump($snederSMS->send());
         dump($snederEmail->send());
+    }
+
+    public function bridge()
+    {
+        $bmw_red = new BMW(new Red());
+        $bmw_green = new BMW(new Green());
+        $benz_red = new Benz(new Red());
+        $benz_green = new Benz(new Green());
+        dump($bmw_red->setupColor());
+        dump($bmw_green->setupColor());
+        dump($benz_red->setupColor());
+        dump($benz_green->setupColor());
+    }
+    public function composite()
+    {
+        $menu = new TopMenu();
+        $menu->addItem(new DownMenu('Mobile'));
+        $menu->addItem(new DownMenu('Laptop'));
+        $menu->addItem(new DownMenu('Watch'));
+        dump($menu->show());
+        $menu = new TopMenu();
+        $menu->addItem(new DownMenu('Table'));
+        $menu->addItem(new DownMenu('Canape'));
+        $menu->addItem(new DownMenu('TV'));
+        dump($menu->show());
     }
 }

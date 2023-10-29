@@ -10,7 +10,7 @@ class CarRead
     {
         $this->model = 'Copy of '.$this->model;
         $this->color = 'Copy of '.$this->color;
-        $this->price = 'Copy of '.$this->price;
+        //$this->price = 'Copy of '.$this->price;
     }
 
     /**
