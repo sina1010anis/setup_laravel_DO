@@ -9,6 +9,8 @@ use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Builder\Core\BuyProductUser;
 use App\Pattern\ConnectPayment\Connect\IDPay\Core\IDPay;
 use App\Pattern\ConnectPayment\Connect\PayIr\Core\PayIr;
+use App\Pattern\Decorator\Core\Option\GardProduct;
+use App\Pattern\Decorator\Core\Product_1;
 use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
@@ -31,6 +33,7 @@ use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\ConnectPayment\Payment\Core\IDPayAdapter;
 use App\Pattern\ConnectPayment\Payment\Core\PayIrAdapter;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
+use App\Pattern\Decorator\Core\Option\BoxProduct;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MongoDBConnection;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
@@ -222,5 +225,11 @@ use Spatie\Sitemap\SitemapGenerator;
         $menu->addItem(new DownMenu('Canape'));
         $menu->addItem(new DownMenu('TV'));
         dump($menu->show());
+    }
+
+    public function decorator()
+    {
+        $buy_product_1 = new Product_1();
+        echo (new BoxProduct(new BoxProduct(new GardProduct(new GardProduct($buy_product_1)))))->buyProductInViewPrice();
     }
 }

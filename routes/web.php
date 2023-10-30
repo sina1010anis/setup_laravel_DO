@@ -33,3 +33,4 @@ Route::get('/staticfactory', [IndexController::class,'staticfactory']);
 Route::get('/adapter', [IndexController::class,'adapter']);
 Route::get('/bridge', [IndexController::class,'bridge']);
 Route::get('/composite', [IndexController::class,'composite']);
+Route::get('/decorator', [IndexController::class,'decorator']);
