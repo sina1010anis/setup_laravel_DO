@@ -1,17 +1,14 @@
 <?php
 
 namespace App\Pattern\Composite\Core;
-use App\Pattern\Composite\interface\InterfaceMenu;
+use App\Pattern\Composite\AbstractTopMenu\TopMenuExt;
+use App\Pattern\Composite\interface\MenuCompositeImp;
 
-class DownMenu implements InterfaceMenu
+class DownMenu implements MenuCompositeImp
 {
-    public $text;
-    public function __construct($text)
+    public function __construct(public string $name_menu){}
+    public function show() : string
     {
-        $this->text = $text;
-    }
-    public function show($text = null) : string
-    {
-        return $this->text;
+        return (string) $this->name_menu;
     }
 }

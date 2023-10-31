@@ -6,12 +6,10 @@ use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Bridge\Core\BMW;
 use App\Pattern\Bridge\Core\Red;
 use App\Pattern\Builder\Core\BuyProduct;
-use App\Pattern\Builder\Core\BuyProductUser;
-use App\Pattern\ConnectPayment\Connect\IDPay\Core\IDPay;
-use App\Pattern\ConnectPayment\Connect\PayIr\Core\PayIr;
-use App\Pattern\Decorator\Core\Option\GardProduct;
-use App\Pattern\Decorator\Core\Product_1;
-use App\Pattern\P1\Core\Builder\Core\MysqlBuild;
+use App\Pattern\Composite\Core\DownMenu;
+use App\Pattern\Composite\Core\TopMenu;
+use App\Pattern\Decorator\Core\Food_1;
+use App\Pattern\Decorator\Core\Option\ChizFood;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
 use App\Pattern\SimpelFactory\Core\FactoryDB;
@@ -24,26 +22,14 @@ use App\Pattern\AbstractFactory\Core\MysqlDB;
 use App\Pattern\Adapter\Core\EmailMessageAdpter;
 use App\Pattern\Bridge\Core\Benz;
 use App\Pattern\Bridge\Core\Green;
-use App\Pattern\Builder\Core\ConnectionDBBuilder;
 use App\Pattern\Builder\Core\ProductBuy;
-use App\Pattern\Builder\Database\MongoDB as DatabaseMongoDB;
-use App\Pattern\Builder\Database\MysqlDB as DatabaseMysqlDB;
-use App\Pattern\Composite\Core\DownMenu;
-use App\Pattern\Composite\Core\TopMenu;
-use App\Pattern\ConnectPayment\Payment\Core\IDPayAdapter;
-use App\Pattern\ConnectPayment\Payment\Core\PayIrAdapter;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
-use App\Pattern\Decorator\Core\Option\BoxProduct;
+use App\Pattern\Decorator\Core\Option\BigFood;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
-use App\Pattern\FactoryMethod\Core\MongoDBConnection;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
-use App\Pattern\P1\Core\Abs\Core\MysqlAbs;
-use App\Pattern\P1\Core\Builder\Core\MongoDBBuild;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
-use Database\Factories\UserFactory;
 use Illuminate\Support\Benchmark;
-use Illuminate\Support\Facades\Http;
 use Spatie\Sitemap\SitemapGenerator;
  class IndexController extends Controller
 {
@@ -215,21 +201,28 @@ use Spatie\Sitemap\SitemapGenerator;
     }
     public function composite()
     {
-        $menu = new TopMenu();
-        $menu->addItem(new DownMenu('Mobile'));
-        $menu->addItem(new DownMenu('Laptop'));
-        $menu->addItem(new DownMenu('Watch'));
-        dump($menu->show());
-        $menu = new TopMenu();
-        $menu->addItem(new DownMenu('Table'));
-        $menu->addItem(new DownMenu('Canape'));
-        $menu->addItem(new DownMenu('TV'));
-        dump($menu->show());
+        $menu_1 = new TopMenu('Mobile');
+        $menu_1->addMenu(new DownMenu('Samsung'));
+        $menu_1->addMenu(new DownMenu('Iphone'));
+        $menu_1->addMenu(new DownMenu('LG'));
+        $menu_1->addMenu(new DownMenu('Song'));
+        $menu_2 = new TopMenu('Laptop');
+        $menu_2->addMenu(new DownMenu('Asus'));
+        $menu_2->addMenu(new DownMenu('Lenovo'));
+        $menu_2->addMenu(new DownMenu('HP'));
+        $menu_2->addMenu(new DownMenu('Microsoft'));
+        $menu = new TopMenu('Digital');
+        $menu->addMenu($menu_1);
+        $menu->addMenu($menu_2);
+        return $menu->show();
     }
 
     public function decorator()
     {
-        $buy_product_1 = new Product_1();
-        echo (new BoxProduct(new BoxProduct(new GardProduct(new GardProduct($buy_product_1)))))->buyProductInViewPrice();
+        // $buy_product_1 = new Product_1();
+        // echo (new BoxProduct(new BoxProduct(new GardProduct(new GardProduct($buy_product_1)))))->buyProductInViewPrice();
+
+        $food_order = new Food_1();
+        echo (new ChizFood(new BigFood(new ChizFood(new BigFood(new BigFood($food_order))))))->nameFood();
     }
 }

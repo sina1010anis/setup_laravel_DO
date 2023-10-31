@@ -1,24 +1,26 @@
 <?php
 
 namespace App\Pattern\Composite\Core;
-use App\Pattern\Composite\interface\InterfaceMenu;
+use App\Pattern\Composite\AbstractTopMenu\TopMenuExt;
+use App\Pattern\Composite\interface\MenuCompositeImp;
 
-class TopMenu implements InterfaceMenu
+class TopMenu extends TopMenuExt
 {
-    public $item = [];
-    public $text = '';
-    public function show($text = null) : string
+    public $menus = [];
+    public function show() : string
     {
-        $this->text .= 'Show -->'.PHP_EOL;
-        foreach ($this->item as $item) {
-            $this->text .= $item->show().PHP_EOL;
+        $str = '';
+        $str .= '<ol><li>'.$this->name_menu.'<ul>';
+        foreach ($this->menus as $menu) {
+            $str .= '<li>'.$menu->show().'</li>';
         }
-        $this->text .= '<-- Show';
-        return $this->text;
+        $str .='</ul></li></ol>';
+
+        return $str;
     }
 
-    public function addItem(InterfaceMenu $interfaceMenu)
+    public function addMenu (MenuCompositeImp $menuExt)
     {
-        $this->item[] = $interfaceMenu ;
+        $this->menus[] = $menuExt;
     }
 }
