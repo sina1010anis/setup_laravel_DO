@@ -10,6 +10,7 @@ use App\Pattern\Composite\Core\DownMenu;
 use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\Decorator\Core\Food_1;
 use App\Pattern\Decorator\Core\Option\ChizFood;
+use App\Pattern\DependencyInjection\Core\ConfigDatabase;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
 use App\Pattern\SimpelFactory\Core\FactoryDB;
@@ -25,6 +26,7 @@ use App\Pattern\Bridge\Core\Green;
 use App\Pattern\Builder\Core\ProductBuy;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
 use App\Pattern\Decorator\Core\Option\BigFood;
+use App\Pattern\DependencyInjection\Core\ConnectDatabase;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
@@ -206,14 +208,17 @@ use Spatie\Sitemap\SitemapGenerator;
         $menu_1->addMenu(new DownMenu('Iphone'));
         $menu_1->addMenu(new DownMenu('LG'));
         $menu_1->addMenu(new DownMenu('Song'));
+
         $menu_2 = new TopMenu('Laptop');
         $menu_2->addMenu(new DownMenu('Asus'));
         $menu_2->addMenu(new DownMenu('Lenovo'));
         $menu_2->addMenu(new DownMenu('HP'));
         $menu_2->addMenu(new DownMenu('Microsoft'));
+
         $menu = new TopMenu('Digital');
         $menu->addMenu($menu_1);
         $menu->addMenu($menu_2);
+
         return $menu->show();
     }
 
@@ -224,5 +229,12 @@ use Spatie\Sitemap\SitemapGenerator;
 
         $food_order = new Food_1();
         echo (new ChizFood(new BigFood(new ChizFood(new BigFood(new BigFood($food_order))))))->nameFood();
+    }
+
+    public function dependencyInjection()
+    {
+        $config_database = new ConfigDatabase('root', 'password', 'shop', '127.0.0.1');
+        $connect_database = new ConnectDatabase($config_database);
+        echo $connect_database->connect();
     }
 }
