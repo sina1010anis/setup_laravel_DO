@@ -11,6 +11,7 @@ use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\Decorator\Core\Food_1;
 use App\Pattern\Decorator\Core\Option\ChizFood;
 use App\Pattern\DependencyInjection\Core\ConfigDatabase;
+use App\Pattern\Facade\Core\FacadeChangePrice;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
 use App\Pattern\SimpelFactory\Core\FactoryDB;
@@ -236,5 +237,18 @@ use Spatie\Sitemap\SitemapGenerator;
         $config_database = new ConfigDatabase('root', 'password', 'shop', '127.0.0.1');
         $connect_database = new ConnectDatabase($config_database);
         echo $connect_database->connect();
+    }
+
+    public function facade()
+    {
+        $change_to = new FacadeChangePrice();
+        $change_ir = clone $change_to;
+
+        echo '<pre>';
+        print_r( $change_to->setTO());
+        echo '</pre>';
+        echo '<pre>';
+        print_r( $change_ir->setIR());
+        echo '</pre>';
     }
 }
