@@ -29,10 +29,11 @@ Route::get('/sitemap', [IndexController::class,'sitemap']);
 Route::get('/simpelfactory', [IndexController::class,'simpelfactory']);
 Route::get('/singelton', [IndexController::class,'singelton']);
 Route::get('/staticfactory', [IndexController::class,'staticfactory']);
-// *********************  **************************** //
+// ********************* Structural **************************** //
 Route::get('/adapter', [IndexController::class,'adapter']);
 Route::get('/bridge', [IndexController::class,'bridge']);
 Route::get('/composite', [IndexController::class,'composite']);
 Route::get('/decorator', [IndexController::class,'decorator']);
 Route::get('/dependencyInjection', [IndexController::class,'dependencyInjection']);
 Route::get('/facade', [IndexController::class,'facade']);
+Route::get('/flyweight', [IndexController::class,'flyweight']);

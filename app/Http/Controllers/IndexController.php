@@ -12,6 +12,7 @@ use App\Pattern\Decorator\Core\Food_1;
 use App\Pattern\Decorator\Core\Option\ChizFood;
 use App\Pattern\DependencyInjection\Core\ConfigDatabase;
 use App\Pattern\Facade\Core\FacadeChangePrice;
+use App\Pattern\Flyweight\Core\FlyweightProduct;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
 use App\Pattern\SimpelFactory\Core\FactoryDB;
@@ -250,5 +251,19 @@ use Spatie\Sitemap\SitemapGenerator;
         echo '<pre>';
         print_r( $change_ir->setIR());
         echo '</pre>';
+    }
+
+    public function flyweight()
+    {
+        $name_products = ['M Samsung s22', 'L Surface laptop 5 ', 'M Iphone 15', 'L Hp Omen 16.1'];
+        $flyweight = new FlyweightProduct();
+        for ($i = 0 ; $i <= 10 ; $i++) {
+            foreach ($name_products as $name_product) {
+                $fly = $flyweight->sreachClass($name_product);
+                echo $fly->getName($name_product);
+            }
+        }
+
+        dd($flyweight->getForIf());
     }
 }
