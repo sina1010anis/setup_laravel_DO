@@ -7,7 +7,7 @@ use App\Pattern\Chain\interface\BuyProducts;
 class PriceProduct extends BuyProducts
 {
 
-    private $price = 1000;
+    private $price = 5000;
     public function checkInClass ()
     {
 

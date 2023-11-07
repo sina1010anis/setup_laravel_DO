@@ -27,6 +27,7 @@ use App\Pattern\Adapter\Core\EmailMessageAdpter;
 use App\Pattern\Bridge\Core\Benz;
 use App\Pattern\Bridge\Core\Green;
 use App\Pattern\Builder\Core\ProductBuy;
+use App\Pattern\Chain\Core\BuyProductFacade;
 use App\Pattern\Chain\Core\CheckLoginUser;
 use App\Pattern\Chain\Core\NumberProducts;
 use App\Pattern\Chain\Core\PriceProduct;
@@ -284,13 +285,17 @@ use Spatie\Sitemap\SitemapGenerator;
 
     public function chain ()
     {
-        $login = new CheckLoginUser();
-        $number = new NumberProducts();
-        $price = new PriceProduct();
+        // Normal Use Pattern Chain of responsibility ////////////////////
+        // $login = new CheckLoginUser();
+        // $number = new NumberProducts();
+        // $price = new PriceProduct();
 
-        $login->setTempNextClass($number);
-        $number->setTempNextClass($price);
+        // $login->setTempNextClass($number);
+        // $number->setTempNextClass($price);
 
-        $login->checkInClass();
+        // $login->checkInClass();
+
+        // In Facade Pattern Use Pattern Chain of responsibility ////////////////////
+        BuyProductFacade::facade();
     }
 }
