@@ -15,6 +15,7 @@ use App\Pattern\Facade\Core\FacadeChangePrice;
 use App\Pattern\Flyweight\Core\FlyweightProduct;
 use App\Pattern\P1\Core\Factory\Core\ConncetionDB;
 use App\Pattern\Prototype\Core\CarRead;
+use App\Pattern\Proxy\Core\ClinetBanProxy;
 use App\Pattern\SimpelFactory\Core\FactoryDB;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
@@ -26,6 +27,13 @@ use App\Pattern\Adapter\Core\EmailMessageAdpter;
 use App\Pattern\Bridge\Core\Benz;
 use App\Pattern\Bridge\Core\Green;
 use App\Pattern\Builder\Core\ProductBuy;
+use App\Pattern\Chain\Core\CheckLoginUser;
+use App\Pattern\Chain\Core\NumberProducts;
+use App\Pattern\Chain\Core\PriceProduct;
+use App\Pattern\ChainTest\Core\AlarmOff;
+use App\Pattern\ChainTest\Core\HomeStatus;
+use App\Pattern\ChainTest\Core\LightsOff;
+use App\Pattern\ChainTest\Core\Locks;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
 use App\Pattern\Decorator\Core\Option\BigFood;
 use App\Pattern\DependencyInjection\Core\ConnectDatabase;
@@ -34,6 +42,7 @@ use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
+use Illuminate\Support\Facades\Log;
 use Spatie\Sitemap\SitemapGenerator;
  class IndexController extends Controller
 {
@@ -265,5 +274,23 @@ use Spatie\Sitemap\SitemapGenerator;
         }
 
         dd($flyweight->getForIf());
+    }
+
+    public function proxy ()
+    {
+        $clinet_ban = new ClinetBanProxy();
+        echo $clinet_ban->ban(true);
+    }
+
+    public function chain ()
+    {
+        $login = new CheckLoginUser();
+        $number = new NumberProducts();
+        $price = new PriceProduct();
+
+        $login->setTempNextClass($number);
+        $number->setTempNextClass($price);
+
+        $login->checkInClass();
     }
 }

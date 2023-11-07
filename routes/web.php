@@ -37,3 +37,6 @@ Route::get('/decorator', [IndexController::class,'decorator']);
 Route::get('/dependencyInjection', [IndexController::class,'dependencyInjection']);
 Route::get('/facade', [IndexController::class,'facade']);
 Route::get('/flyweight', [IndexController::class,'flyweight']);
+Route::get('/proxy', [IndexController::class,'proxy']);
+// ********************* Behavioral **************************** //
+Route::get('/chain', [IndexController::class,'chain']);
