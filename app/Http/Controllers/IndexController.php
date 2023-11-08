@@ -8,6 +8,8 @@ use App\Pattern\Bridge\Core\Red;
 use App\Pattern\Builder\Core\BuyProduct;
 use App\Pattern\Chain_2\Core\IsAdmin;
 use App\Pattern\Chain_2\Core\NumberProductMin;
+use App\Pattern\Command\Core\Laptop;
+use App\Pattern\Command\Core\ShutdownLaptop;
 use App\Pattern\Composite\Core\DownMenu;
 use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\Decorator\Core\Food_1;
@@ -40,6 +42,11 @@ use App\Pattern\ChainTest\Core\AlarmOff;
 use App\Pattern\ChainTest\Core\HomeStatus;
 use App\Pattern\ChainTest\Core\LightsOff;
 use App\Pattern\ChainTest\Core\Locks;
+use App\Pattern\Command\Core\InvoiderClass;
+use App\Pattern\Command\Core\Mobile;
+use App\Pattern\Command\Core\PC;
+use App\Pattern\Command\Core\ShutdownMobile;
+use App\Pattern\Command\Core\ShutdownPC;
 use App\Pattern\ConnectPayment\Payment\Core\Payment;
 use App\Pattern\Decorator\Core\Option\BigFood;
 use App\Pattern\DependencyInjection\Core\ConnectDatabase;
@@ -305,23 +312,41 @@ use Spatie\Sitemap\SitemapGenerator;
 
     public function chain ()
     {
-        // Normal Use Pattern Chain of responsibility ////////////////////
+        ////////////////////// Normal Use Pattern Chain of responsibility ////////////////////
         // $login = new CheckLoginUser();
         // $number = new NumberProducts();
         // $price = new PriceProduct();
-
         // $login->setTempNextClass($number);
         // $number->setTempNextClass($price);
-
         // $login->checkInClass();
 
-        // In Facade Pattern Use Pattern Chain of responsibility ////////////////////
+        ////////////////////// In Facade Pattern Use Pattern Chain of responsibility ////////////////////
         //BuyProductFacade::facade();
 
-        // Test 2 Use Pattern Chain of responsibility ////////////////////
-        $chain = new ChackChain();
-        return $chain->addMin(new AuthUserMin())->addMin(new FactorCheck())->addMin(new IsAdmin())->addMin(new NumberProductMin())->check();
+        ////////////////////// Test 2 Use Pattern Chain of responsibility ////////////////////
+        // $chain = new ChackChain();
+        // return $chain->addMin(new AuthUserMin())->addMin(new FactorCheck())->addMin(new IsAdmin())->addMin(new NumberProductMin())->check();
+    }
 
+    public function command()
+    {
+        $res_1 = new Laptop();
+        $res_2 = new Mobile();
+        $res_3 = new PC();
 
+        $shutdown_laptop = new ShutdownLaptop($res_1);
+        $shutdown_mobile = new ShutdownMobile($res_2);
+        $shutdown_pc = new ShutdownPC($res_3);
+
+        $invoider = new InvoiderClass();
+
+        $invoider->setCommand($shutdown_laptop);
+        $invoider->run();
+        echo '<br><br>';
+        $invoider->setCommand($shutdown_mobile);
+        $invoider->run();
+        echo '<br><br>';
+        $invoider->setCommand($shutdown_pc);
+        $invoider->run();
     }
 }

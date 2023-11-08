@@ -40,3 +40,4 @@ Route::get('/flyweight', [IndexController::class,'flyweight']);
 Route::get('/proxy', [IndexController::class,'proxy']);
 // ********************* Behavioral **************************** //
 Route::get('/chain', [IndexController::class,'chain']);
+Route::get('/command', [IndexController::class,'command']);
