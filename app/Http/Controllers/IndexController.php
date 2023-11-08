@@ -6,6 +6,8 @@ use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Bridge\Core\BMW;
 use App\Pattern\Bridge\Core\Red;
 use App\Pattern\Builder\Core\BuyProduct;
+use App\Pattern\Chain_2\Core\IsAdmin;
+use App\Pattern\Chain_2\Core\NumberProductMin;
 use App\Pattern\Composite\Core\DownMenu;
 use App\Pattern\Composite\Core\TopMenu;
 use App\Pattern\Decorator\Core\Food_1;
@@ -31,6 +33,9 @@ use App\Pattern\Chain\Core\BuyProductFacade;
 use App\Pattern\Chain\Core\CheckLoginUser;
 use App\Pattern\Chain\Core\NumberProducts;
 use App\Pattern\Chain\Core\PriceProduct;
+use App\Pattern\Chain_2\Core\AuthUserMin;
+use App\Pattern\Chain_2\Core\ChackChain;
+use App\Pattern\Chain_2\Core\FactorCheck;
 use App\Pattern\ChainTest\Core\AlarmOff;
 use App\Pattern\ChainTest\Core\HomeStatus;
 use App\Pattern\ChainTest\Core\LightsOff;
@@ -44,6 +49,10 @@ use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Log;
+use Rubix\ML\Classifiers\KNearestNeighbors;
+use Rubix\ML\Datasets\Labeled;
+use Rubix\ML\Datasets\Unlabeled;
+use Rubix\ML\Kernels\Distance\Minkowski;
 use Spatie\Sitemap\SitemapGenerator;
  class IndexController extends Controller
 {
@@ -54,15 +63,26 @@ use Spatie\Sitemap\SitemapGenerator;
     }
     public function test()
     {
-        $params_pay_ir = ['api' => 'YOUR-API-KEY', 'amount' => 98000, 'redirect' => 'http://localhost:8000/test-2', 'token' => 987556];
-        $params_id_pay = ['order_id' => 101, 'amount' => 98000, 'desc' => 'توضیحات پرداخت', 'callback' => 'http://localhost:8000/test-2'];
 
-        // $id_pay = new IDPayAdapter($params_id_pay);
-        // return $id_pay->payment();
+        // $params_pay_ir = ['api' => 'YOUR-API-KEY', 'amount' => 98000, 'redirect' => 'http://localhost:8000/test-2', 'token' => 987556];
+        // $params_id_pay = [
+        // // $id_pay = new IDPayAdapter($params_id_pay);
+        // // return $id_pay->payment();
 
-        $factory_payment = Payment::factory('idpay', $params_id_pay);
-        dd($factory_payment->payment());
+        // $factory_payment = Payment::factory('idpay', $params_id_pay);
+        // dd($factory_payment-'order_id' => 101, 'amount' => 98000, 'desc' => 'توضیحات پرداخت', 'callback' => 'http://localhost:8000/test-2'];>payment());
+        $samples = [
+            [4, 3, 44.2],
+            [2, 2, 16.7],
+            [2, 4, 19.5],
+            [3, 3, 55.0],
+        ];
+        $labels = ['married', 'divorced', 'married', 'divorced'];
 
+        $dataset = new Labeled($samples, $labels);
+        $estimator = new KNearestNeighbors(10, false, new Minkowski(2.5));
+
+        dd($estimator->trained());
 
     }
     public function index(Request $request ,Elastic $elastic)
@@ -296,6 +316,12 @@ use Spatie\Sitemap\SitemapGenerator;
         // $login->checkInClass();
 
         // In Facade Pattern Use Pattern Chain of responsibility ////////////////////
-        BuyProductFacade::facade();
+        //BuyProductFacade::facade();
+
+        // Test 2 Use Pattern Chain of responsibility ////////////////////
+        $chain = new ChackChain();
+        return $chain->addMin(new AuthUserMin())->addMin(new FactorCheck())->addMin(new IsAdmin())->addMin(new NumberProductMin())->check();
+
+
     }
 }
