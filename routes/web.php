@@ -41,3 +41,4 @@ Route::get('/proxy', [IndexController::class,'proxy']);
 // ********************* Behavioral **************************** //
 Route::get('/chain', [IndexController::class,'chain']);
 Route::get('/command', [IndexController::class,'command']);
+Route::get('/iteretor', [IndexController::class,'iteretor']);

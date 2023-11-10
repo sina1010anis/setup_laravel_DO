@@ -52,6 +52,8 @@ use App\Pattern\Decorator\Core\Option\BigFood;
 use App\Pattern\DependencyInjection\Core\ConnectDatabase;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
+use App\Pattern\Iteretor\Core\ProductList;
+use App\Pattern\Iteretor\Core\Products;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
@@ -313,12 +315,12 @@ use Spatie\Sitemap\SitemapGenerator;
     public function chain ()
     {
         ////////////////////// Normal Use Pattern Chain of responsibility ////////////////////
-        // $login = new CheckLoginUser();
-        // $number = new NumberProducts();
-        // $price = new PriceProduct();
-        // $login->setTempNextClass($number);
-        // $number->setTempNextClass($price);
-        // $login->checkInClass();
+        $login = new CheckLoginUser();
+        $number = new NumberProducts();
+        $price = new PriceProduct();
+        $login->setTempNextClass($number);
+        $number->setTempNextClass($price);
+        $login->checkInClass();
 
         ////////////////////// In Facade Pattern Use Pattern Chain of responsibility ////////////////////
         //BuyProductFacade::facade();
@@ -348,5 +350,22 @@ use Spatie\Sitemap\SitemapGenerator;
         echo '<br><br>';
         $invoider->setCommand($shutdown_pc);
         $invoider->run();
+    }
+
+    public function iteretor()
+    {
+
+        $product_list = new ProductList();
+        $product_list->addProduct(new Products('Mobile', 2500, 'This is mobile...!'));
+        $product_list->addProduct(new Products('Laptop', 5500, 'This is laptop...!'));
+        $product_list->addProduct(new Products('Watch', 1500, 'This is watch...!'));
+        $product_list->addProduct(new Products('Keybord', 500, 'This is keybord...!'));
+        $product_list->addProduct(new Products('Book', 35, 'This is book...!'));
+        $product_list->addProduct(new Products('Pen', 2, 'This is pen...!'));
+        for ($product = 0 ; $product <= $product_list->countProducts()-1 ; $product = $product_list->getCounter()) {
+            // echo $product;
+            echo $product_list->showByOneCounter()->getName().'<br>';
+            $product_list->nextCounter();
+        }
     }
 }
