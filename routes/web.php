@@ -42,3 +42,4 @@ Route::get('/proxy', [IndexController::class,'proxy']);
 Route::get('/chain', [IndexController::class,'chain']);
 Route::get('/command', [IndexController::class,'command']);
 Route::get('/iteretor', [IndexController::class,'iteretor']);
+Route::get('/mediator', [IndexController::class,'mediator']);

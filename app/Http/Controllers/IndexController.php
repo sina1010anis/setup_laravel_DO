@@ -6,8 +6,6 @@ use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Bridge\Core\BMW;
 use App\Pattern\Bridge\Core\Red;
 use App\Pattern\Builder\Core\BuyProduct;
-use App\Pattern\Chain_2\Core\IsAdmin;
-use App\Pattern\Chain_2\Core\NumberProductMin;
 use App\Pattern\Command\Core\Laptop;
 use App\Pattern\Command\Core\ShutdownLaptop;
 use App\Pattern\Composite\Core\DownMenu;
@@ -31,36 +29,27 @@ use App\Pattern\Adapter\Core\EmailMessageAdpter;
 use App\Pattern\Bridge\Core\Benz;
 use App\Pattern\Bridge\Core\Green;
 use App\Pattern\Builder\Core\ProductBuy;
-use App\Pattern\Chain\Core\BuyProductFacade;
 use App\Pattern\Chain\Core\CheckLoginUser;
 use App\Pattern\Chain\Core\NumberProducts;
 use App\Pattern\Chain\Core\PriceProduct;
-use App\Pattern\Chain_2\Core\AuthUserMin;
-use App\Pattern\Chain_2\Core\ChackChain;
-use App\Pattern\Chain_2\Core\FactorCheck;
-use App\Pattern\ChainTest\Core\AlarmOff;
-use App\Pattern\ChainTest\Core\HomeStatus;
-use App\Pattern\ChainTest\Core\LightsOff;
-use App\Pattern\ChainTest\Core\Locks;
 use App\Pattern\Command\Core\InvoiderClass;
-use App\Pattern\Command\Core\Mobile;
 use App\Pattern\Command\Core\PC;
 use App\Pattern\Command\Core\ShutdownMobile;
 use App\Pattern\Command\Core\ShutdownPC;
-use App\Pattern\ConnectPayment\Payment\Core\Payment;
 use App\Pattern\Decorator\Core\Option\BigFood;
 use App\Pattern\DependencyInjection\Core\ConnectDatabase;
 use App\Pattern\FactoryMethod\Core\FactoryConnect;
 use App\Pattern\FactoryMethod\Core\MysqlConnection;
 use App\Pattern\Iteretor\Core\ProductList;
 use App\Pattern\Iteretor\Core\Products;
+use App\Pattern\Mediator\Core\Email;
+use App\Pattern\Mediator\Core\Mobile;
+use App\Pattern\Mediator\Core\SendMessageMobileAndEmail;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
-use Illuminate\Support\Facades\Log;
 use Rubix\ML\Classifiers\KNearestNeighbors;
 use Rubix\ML\Datasets\Labeled;
-use Rubix\ML\Datasets\Unlabeled;
 use Rubix\ML\Kernels\Distance\Minkowski;
 use Spatie\Sitemap\SitemapGenerator;
  class IndexController extends Controller
@@ -362,10 +351,17 @@ use Spatie\Sitemap\SitemapGenerator;
         $product_list->addProduct(new Products('Keybord', 500, 'This is keybord...!'));
         $product_list->addProduct(new Products('Book', 35, 'This is book...!'));
         $product_list->addProduct(new Products('Pen', 2, 'This is pen...!'));
+
         for ($product = 0 ; $product <= $product_list->countProducts()-1 ; $product = $product_list->getCounter()) {
             // echo $product;
             echo $product_list->showByOneCounter()->getName().'<br>';
             $product_list->nextCounter();
         }
+    }
+
+    public function mediator()
+    {
+        $mediator = new SendMessageMobileAndEmail('Test');
+        return $mediator->sendNotify(new Email());
     }
 }
