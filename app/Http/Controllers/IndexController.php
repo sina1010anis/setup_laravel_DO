@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Pattern\Memento\Core\MemontoVersion;
+use App\Pattern\Memento\Core\ServerVersion;
+use Illuminate\Support\Str;
 use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Bridge\Core\BMW;
 use App\Pattern\Bridge\Core\Red;
@@ -45,9 +48,11 @@ use App\Pattern\Iteretor\Core\Products;
 use App\Pattern\Mediator\Core\Email;
 use App\Pattern\Mediator\Core\Mobile;
 use App\Pattern\Mediator\Core\SendMessageMobileAndEmail;
+use App\Pattern\Memento\Core\ClientVersion;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
+use App\Pattern\Test;
 use Rubix\ML\Classifiers\KNearestNeighbors;
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Kernels\Distance\Minkowski;
@@ -361,7 +366,17 @@ use Spatie\Sitemap\SitemapGenerator;
 
     public function mediator()
     {
+        //$t = new Test();
+        //dd($t->Test());
         $mediator = new SendMessageMobileAndEmail('Test');
         return $mediator->sendNotify(new Email());
+    }
+
+    public function memonto()
+    {
+        $m = new MemontoVersion(new ClientVersion(), new ServerVersion());
+
+        echo $m->getVeriosnClient().'<br>';
+        echo $m->getVeriosnServer();
     }
 }

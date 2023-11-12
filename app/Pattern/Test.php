@@ -1,9 +1,9 @@
 <?php
 
-namespace Pattern;
+namespace App\Pattern;
 
 class Test {
-    public function Sub() : string
+    public function Test() : string
     {
         return 'Say Hello';
     }
