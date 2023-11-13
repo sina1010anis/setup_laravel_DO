@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pattern\Memento\Core\MemontoVersion;
 use App\Pattern\Memento\Core\ServerVersion;
+use App\Pattern\Observer\Core\Template_1;
 use Illuminate\Support\Str;
 use App\Pattern\Adapter\Core\SMSMessageAdpter;
 use App\Pattern\Bridge\Core\BMW;
@@ -49,6 +50,11 @@ use App\Pattern\Mediator\Core\Email;
 use App\Pattern\Mediator\Core\Mobile;
 use App\Pattern\Mediator\Core\SendMessageMobileAndEmail;
 use App\Pattern\Memento\Core\ClientVersion;
+use App\Pattern\Observer\Core\Client_1;
+use App\Pattern\Observer\Core\Client_2;
+use App\Pattern\Observer\Core\Client_3;
+use App\Pattern\Observer\Core\Client_4;
+use App\Pattern\Observer\Core\Template_2;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
@@ -378,5 +384,26 @@ use Spatie\Sitemap\SitemapGenerator;
 
         echo $m->getVeriosnClient().'<br>';
         echo $m->getVeriosnServer();
+    }
+
+    public function observer()
+    {
+        $theme_1 = new Template_1();
+        $theme_2 = new Template_2();
+
+        $client_1 = new Client_1();
+        $client_2 = new Client_2();
+        $client_3 = new Client_3();
+        $client_4 = new Client_4();
+
+        $theme_1->addSubject($client_1);
+        $theme_1->addSubject($client_3);
+
+        $theme_2->addSubject($client_3);
+        $theme_2->addSubject($client_4);
+        $theme_2->addSubject($client_2);
+
+        $theme_1->newEventSend('Laravel v11');
+        $theme_2->newEventSend('PHP 9');
     }
 }

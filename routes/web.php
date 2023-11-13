@@ -44,3 +44,4 @@ Route::get('/command', [IndexController::class,'command']);
 Route::get('/iteretor', [IndexController::class,'iteretor']);
 Route::get('/mediator', [IndexController::class,'mediator']);
 Route::get('/memonto', [IndexController::class,'memonto']);
+Route::get('/observer', [IndexController::class,'observer']);
