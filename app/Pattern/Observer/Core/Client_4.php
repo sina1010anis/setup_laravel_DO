@@ -5,8 +5,8 @@ use App\Pattern\Observer\Interface\SubjectObserver;
 
 class Client_4 implements SubjectObserver
 {
-    public function update(string $nameClass, string $nameEvent)
+    public function update(string $className, string $nameEvent)
     {
-        echo 'Subject '.__CLASS__.' Class => ' . $nameClass.' Event => '.$nameEvent.'<br>';
+        echo 'Subject '.__CLASS__.' Class => ' . $className.' Event => '.$nameEvent.'<br>';
     }
 }

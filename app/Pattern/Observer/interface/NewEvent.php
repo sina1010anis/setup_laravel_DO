@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Pattern\Observer\Interface;
+namespace App\Pattern\Observer\interface;
 
 interface NewEvent
 {

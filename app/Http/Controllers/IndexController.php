@@ -56,6 +56,7 @@ use App\Pattern\Observer\Core\Client_3;
 use App\Pattern\Observer\Core\Client_4;
 use App\Pattern\Observer\Core\Template_2;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
+use App\Pattern\State\Core\ProductContext;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
 use App\Pattern\Test;
@@ -405,5 +406,16 @@ use Spatie\Sitemap\SitemapGenerator;
 
         $theme_1->newEventSend('Laravel v11');
         $theme_2->newEventSend('PHP 9');
+    }
+
+    public function state()
+    {
+        $create = new ProductContext();
+
+        $create->createState();
+        $create->proceedToNext();
+
+        return $create->toString();
+
     }
 }

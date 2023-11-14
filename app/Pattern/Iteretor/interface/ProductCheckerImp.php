@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Pattern\Iteretor\Interface;
+namespace App\Pattern\Iteretor\interface;
 
 interface ProductCheckerImp
 {

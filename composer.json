@@ -66,5 +66,8 @@
         }
     },
     "minimum-stability": "stable",
+    "php-implementor.autoloads": {
+        "App": "App/"
+    },
     "prefer-stable": true
 }

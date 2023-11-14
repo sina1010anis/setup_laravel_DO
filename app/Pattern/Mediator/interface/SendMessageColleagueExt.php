@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Pattern\Mediator\Interface;
+namespace App\Pattern\Mediator\interface;
 
 abstract class SendMessageColleagueExt
 {
