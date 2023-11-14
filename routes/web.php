@@ -46,3 +46,4 @@ Route::get('/mediator', [IndexController::class,'mediator']);
 Route::get('/memonto', [IndexController::class,'memonto']);
 Route::get('/observer', [IndexController::class,'observer']);
 Route::get('/state', [IndexController::class,'state']);
+Route::get('/state_2', [IndexController::class,'state_2']);

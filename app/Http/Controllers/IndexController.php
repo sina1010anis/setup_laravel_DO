@@ -57,6 +57,7 @@ use App\Pattern\Observer\Core\Client_4;
 use App\Pattern\Observer\Core\Template_2;
 use App\Pattern\Singelton\Core\MysqlConnection as CoreMysqlConnection;
 use App\Pattern\State\Core\ProductContext;
+use App\Pattern\State_2\Core\State;
 use App\Pattern\StaticFactory\Core\StaticFactory;
 use Illuminate\Support\Benchmark;
 use App\Pattern\Test;
@@ -417,5 +418,15 @@ use Spatie\Sitemap\SitemapGenerator;
 
         return $create->toString();
 
+    }
+
+    public function state_2()
+    {
+        $power = new State();
+        $power->createState();
+        $power->nextSate();
+        $power->nextSate();
+
+        echo $power->statusState();
     }
 }
