@@ -27,6 +27,9 @@ use App\Pattern\Observer\Core\Template_1;
 use App\Pattern\Observer\Core\Template_2;
 use App\Pattern\State\Core\ProductContext;
 use App\Pattern\State_2\Core\State;
+use App\Pattern\Strategy\Core\DBconnection;
+use App\Pattern\Strategy\Core\MongoDBConnction;
+use App\Pattern\Strategy\Core\MysqlConnection;
 use Illuminate\Http\Request;
 
 class BehavioralController extends Controller
@@ -145,6 +148,12 @@ class BehavioralController extends Controller
         $power->nextSate();
 
         echo $power->statusState();
+    }
+
+    public function strategy()
+    {
+        $strategy = new DBconnection();
+        $strategy->setDatabase(new MongoDBConnction())->connect();
     }
 
 }
