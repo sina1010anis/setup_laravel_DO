@@ -30,6 +30,8 @@ use App\Pattern\State_2\Core\State;
 use App\Pattern\Strategy\Core\DBconnection;
 use App\Pattern\Strategy\Core\MongoDBConnction;
 use App\Pattern\Strategy\Core\MysqlConnection;
+use App\Pattern\Tempalte\Core\Email as CoreEmail;
+use App\Pattern\Tempalte\Core\Post;
 use Illuminate\Http\Request;
 
 class BehavioralController extends Controller
@@ -154,6 +156,12 @@ class BehavioralController extends Controller
     {
         $strategy = new DBconnection();
         $strategy->setDatabase(new MongoDBConnction())->connect();
+    }
+
+    public function template()
+    {
+        $template = new Post();
+        echo $template->typeMessage()->send();
     }
 
 }
