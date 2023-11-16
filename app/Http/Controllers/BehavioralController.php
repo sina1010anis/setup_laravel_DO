@@ -32,6 +32,9 @@ use App\Pattern\Strategy\Core\MongoDBConnction;
 use App\Pattern\Strategy\Core\MysqlConnection;
 use App\Pattern\Tempalte\Core\Email as CoreEmail;
 use App\Pattern\Tempalte\Core\Post;
+use App\Pattern\Visitor\Core\EmailNotify;
+use App\Pattern\Visitor\Core\MessageVisitor;
+use App\Pattern\Visitor\Core\SMSNotify;
 use Illuminate\Http\Request;
 
 class BehavioralController extends Controller
@@ -162,6 +165,19 @@ class BehavioralController extends Controller
     {
         $template = new Post();
         echo $template->typeMessage()->send();
+    }
+
+    public function visitor()
+    {
+        $email = new EmailNotify();
+        $sms = new SMSNotify();
+
+        $visitor = new MessageVisitor();
+
+        echo $visitor->accept($sms);
+
+
+
     }
 
 }

@@ -52,3 +52,4 @@ Route::get('/state', [BehavioralController::class,'state']);
 Route::get('/state_2', [BehavioralController::class,'state_2']);
 Route::get('/strategy', [BehavioralController::class,'strategy']);
 Route::get('/template', [BehavioralController::class,'template']);
+Route::get('/visitor', [BehavioralController::class,'visitor']);
