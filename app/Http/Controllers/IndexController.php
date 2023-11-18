@@ -10,6 +10,8 @@ use App\Pattern\Test\Flywedht\Core\ItemFlyweght;
 use App\Pattern\Test\Injection\CarConfig;
 use App\Pattern\Test\Prototype\ColorPhone;
 use App\Pattern\Test\Singelton\ConnectDatabase;
+use App\Pattern\Test\Strategy\Core\MysqlSendName;
+use App\Pattern\Test\Template\Core\C1;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
@@ -33,6 +35,11 @@ use \App\Pattern\Test\Decorator\Core\Hash65 as DHash65;
 use \App\Pattern\Test\Decorator\Core\Hash32 as DHash32;
 use App\Pattern\Test\Facade\CheckUser\Core\Check;
 use App\Pattern\Test\Proxy\Core\DBDeleteProxy;
+use App\Pattern\Test\Strategy\Core\MongoDBSendName;
+use App\Pattern\Test\Strategy\Core\NameDBStrategy;
+use App\Pattern\Test\Template\Core\C2;
+use App\Pattern\Test\Visitor\Core\Number;
+use App\Pattern\Test\Visitor\Core\NumberVistor;
 use Termwind\Components\Dt;
 
  class IndexController extends Controller
@@ -154,11 +161,27 @@ use Termwind\Components\Dt;
         // $chain_1 = new Chain_1();
         // $chain_2 = new Chain_2();
         // $chain_3 = new Chain_3();
-
         // $chain_1->setChain($chain_2);
         // $chain_2->setChain($chain_3);
-
         // $chain_1->check();
+
+        ///// Strategy /////// (Test End)
+        // $sender = new NameDBStrategy();
+        // echo $sender->sendName(new MysqlSendName).'<br>';
+        // echo $sender->sendName(new MongoDBSendName).'<br>';
+
+        ///// Template /////// (Test End)
+        // $c1 = new C1();
+        // $c2 = new C2();
+        // $c1->setName('test c1');
+        // $c2->setName('test c2');
+        // echo $c1->getName().'<br>';
+        // echo $c2->getName().'<br>';
+
+        ///// Visitor /////// (Test End)
+        $visitor_number = new NumberVistor();
+        echo $visitor_number->visitor(new Number(), 5);
+
     }
     public function index(Request $request ,Elastic $elastic)
     {
