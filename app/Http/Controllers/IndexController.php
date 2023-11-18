@@ -2,13 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Pattern\Test\AbstractFactory\Core\Factory\GmailMessage;
+use App\Pattern\Test\Bridge\Core\Hash65;
+use App\Pattern\Test\Builder\Core\BuildShopOnline;
+use App\Pattern\Test\Composeit\Core\DownComposite;
+use App\Pattern\Test\Flywedht\Core\ItemFlyweght;
+use App\Pattern\Test\Injection\CarConfig;
+use App\Pattern\Test\Prototype\ColorPhone;
+use App\Pattern\Test\Singelton\ConnectDatabase;
 use Illuminate\Http\Request;
 use App\Elasticsearch\ConnectionElasticsearch as Elastic;
 use App\Models\Product;
+use App\Pattern\Test\AbstractFactory\Core\Factory\EmailMessage;
+use App\Pattern\Test\Adapter\Core\PayirPayment;
+use App\Pattern\Test\Adapter\Core\ZarinpalPayment;
+use App\Pattern\Test\Bridge\Core\Hash32;
+use App\Pattern\Test\Bridge\Core\Password;
+use App\Pattern\Test\Bridge\Core\Username;
+use App\Pattern\Test\Chain\Core\Chain_1;
+use App\Pattern\Test\Chain\Core\Chain_2;
+use App\Pattern\Test\Chain\Core\Chain_3;
+use App\Pattern\Test\Composeit\Core\TopComposite;
+use App\Pattern\Test\Decorator\Core\Passord_1;
+use App\Pattern\Test\Injection\CarConnect;
 use Illuminate\Support\Benchmark;
 use Rubix\ML\Classifiers\KNearestNeighbors;
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Kernels\Distance\Minkowski;
+use \App\Pattern\Test\Decorator\Core\Hash65 as DHash65;
+use \App\Pattern\Test\Decorator\Core\Hash32 as DHash32;
+use App\Pattern\Test\Facade\CheckUser\Core\Check;
+use App\Pattern\Test\Proxy\Core\DBDeleteProxy;
+use Termwind\Components\Dt;
+
  class IndexController extends Controller
 {
     public function test2()
@@ -26,19 +52,113 @@ use Rubix\ML\Kernels\Distance\Minkowski;
 
         // $factory_payment = Payment::factory('idpay', $params_id_pay);
         // dd($factory_payment-'order_id' => 101, 'amount' => 98000, 'desc' => 'توضیحات پرداخت', 'callback' => 'http://localhost:8000/test-2'];>payment());
-        $samples = [
-            [4, 3, 44.2],
-            [2, 2, 16.7],
-            [2, 4, 19.5],
-            [3, 3, 55.0],
-        ];
-        $labels = ['married', 'divorced', 'married', 'divorced'];
+        // $samples = [
+        //     [4, 3, 44.2],
+        //     [2, 2, 16.7],
+        //     [2, 4, 19.5],
+        //     [3, 3, 55.0],
+        // ];
+        // $labels = ['married', 'divorced', 'married', 'divorced'];
 
-        $dataset = new Labeled($samples, $labels);
-        $estimator = new KNearestNeighbors(10, false, new Minkowski(2.5));
+        // $dataset = new Labeled($samples, $labels);
+        // $estimator = new KNearestNeighbors(10, false, new Minkowski(2.5));
 
-        dd($estimator->trained());
+        // dd($estimator->trained());
+        ////////////////////////////////////////////////
 
+
+        ///// Abstract Factory /////// (Test End)
+        // $notify = GmailMessage::factory('team');
+        // return $notify->singelMessage();
+
+        ///// Builder /////// (Test End)
+        // $a_shop = new BuildShopOnline();
+        // return $a_shop->build();
+
+        ///// Prototype /////// (Test End)
+        // $org = new ColorPhone();
+        // $copy = clone $org;
+        // echo $org->getIsCopy().'<br>';
+        // echo $org->getColor().'<br>';
+
+        // echo $copy->getIsCopy().'<br>';
+        // $copy->setColor('Oreng').'<br>';
+        // echo $copy->getColor().'<br>';
+
+        ///// Singelton /////// (Test End)
+        // $connection_db = ConnectDatabase::singelton();
+        // echo $connection_db->hello();
+
+        ///// Adapter /////// (Test End)
+        // $payment = new PayirPayment();
+        // return $payment->pay();
+
+        ///// Beidge /////// (Test End)
+        // $username = new Username();
+        // $password = new Password();
+
+        // $hash65_username = new Hash65($username);
+        // $hash32_username = new Hash32($username);
+
+        // $hash65_password = new Hash65($password);
+        // $hash32_password = new Hash32($password);
+
+        // dd($hash32_password->connection('test'));
+
+        ///// Dependency Injection /////// (Test End)
+        // $config = new CarConfig('a', 'b', 'c', 'd', 'e');
+        // $set = new CarConnect($config);
+        // dd($set);
+
+        ///// Composite /////// (Test End)
+        // $top_1 = new TopComposite('Mobile');
+        // $top_1->addComposite(new DownComposite('Smasung'));
+        // $top_1->addComposite(new DownComposite('LG'));
+        // $top_1->addComposite(new DownComposite('Sony'));
+        // $top_1->addComposite(new DownComposite('Iphon'));
+
+        // $top_2 = new TopComposite('Laptop');
+        // $top_2->addComposite(new DownComposite('HP'));
+        // $top_2->addComposite(new DownComposite('Lenovo'));
+        // $top_2->addComposite(new DownComposite('Microsoft'));
+        // $top_2->addComposite(new DownComposite('Asus'));
+        // $top_2->addComposite($top_1);
+
+        // echo '<br>';
+        // print_r($top_2->show());
+
+        ///// Decorator /////// (Test End)
+        // $password = new Passord_1();
+        // $hash = new DHash32(new DHash65(new DHash32(new DHash65($password))));
+        // echo $hash->getPassword();
+
+        ///// Facade /////// (Test End)
+        // $check = new Check();
+        // return $check->facade();
+
+        ///// Flyweght /////// (Test End)
+        // $names = ['test', 'yes', 'copy'];
+        // $fly = new ItemFlyweght();
+        // for ($i = 0; $i < 10 ; $i++) {
+        //     foreach ($names as $name) {
+        //         echo $fly->flyItem($name)->getName().'<br>';
+        //     }
+        // }
+        // echo $fly->getForIf();
+
+        ///// Proxy /////// (Test End)
+        // $delete_db = new DBDeleteProxy();
+        // $delete_db->proxy();
+
+        ///// Chain of Responsibility /////// (Test End)
+        // $chain_1 = new Chain_1();
+        // $chain_2 = new Chain_2();
+        // $chain_3 = new Chain_3();
+
+        // $chain_1->setChain($chain_2);
+        // $chain_2->setChain($chain_3);
+
+        // $chain_1->check();
     }
     public function index(Request $request ,Elastic $elastic)
     {
