@@ -8,6 +8,11 @@ use App\Pattern\Test\Builder\Core\BuildShopOnline;
 use App\Pattern\Test\Composeit\Core\DownComposite;
 use App\Pattern\Test\Flywedht\Core\ItemFlyweght;
 use App\Pattern\Test\Injection\CarConfig;
+use App\Pattern\Test\Intrator\Core\KMPAlg;
+use App\Pattern\Test\Observer\Core\Obs_1;
+use App\Pattern\Test\Observer\Core\Obs_2;
+use App\Pattern\Test\Observer\Core\Obs_3;
+use App\Pattern\Test\Observer\Core\SendEmail;
 use App\Pattern\Test\Prototype\ColorPhone;
 use App\Pattern\Test\Singelton\ConnectDatabase;
 use App\Pattern\Test\Strategy\Core\MysqlSendName;
@@ -24,10 +29,14 @@ use App\Pattern\Test\Bridge\Core\Username;
 use App\Pattern\Test\Chain\Core\Chain_1;
 use App\Pattern\Test\Chain\Core\Chain_2;
 use App\Pattern\Test\Chain\Core\Chain_3;
+use App\Pattern\Test\Command\Core\DeleteAccoutVIP;
+use App\Pattern\Test\Command\Core\Invoker;
+use App\Pattern\Test\Command\Core\OffAccoutNormal;
 use App\Pattern\Test\Composeit\Core\TopComposite;
 use App\Pattern\Test\Decorator\Core\Passord_1;
 use App\Pattern\Test\Injection\CarConnect;
 use Illuminate\Support\Benchmark;
+use PHPUnit\Framework\MockObject\Invocation;
 use Rubix\ML\Classifiers\KNearestNeighbors;
 use Rubix\ML\Datasets\Labeled;
 use Rubix\ML\Kernels\Distance\Minkowski;
@@ -179,8 +188,34 @@ use Termwind\Components\Dt;
         // echo $c2->getName().'<br>';
 
         ///// Visitor /////// (Test End)
-        $visitor_number = new NumberVistor();
-        echo $visitor_number->visitor(new Number(), 5);
+        // $visitor_number = new NumberVistor();
+        // echo $visitor_number->visitor(new Number(), 5);
+
+        ///// Command /////// (Test End)
+        // $delete_account_vip = new DeleteAccoutVIP();
+        // $off_account_normal = new OffAccoutNormal();
+        // $invoker = new Invoker();
+        // $invoker->invoker($delete_account_vip);
+        // echo '<br>';
+        // $invoker->invoker($off_account_normal);
+
+        ///// Intrator /////// (Test End)
+        // $kmp = new KMPAlg();
+        // for ($i = 0 ; $i <= 25 ; $i++) {
+        //     $kmp->setStorage(rand(1,9999));
+        // }
+        // $j = 0;
+        // while ($j < $kmp->getMax()) {
+        //     $kmp->setItem($j);
+        //     echo $kmp->getItem().'-->' .$j.'<br>';
+        //     $j += $kmp->nextItem();
+        // }
+
+        ///// Observer /////// (Test End)
+        $email = new SendEmail();
+        $email->addObs(new Obs_1())->addObs(new Obs_3())->addObs(new Obs_2());
+        return $email->newEmail();
+
 
     }
     public function index(Request $request ,Elastic $elastic)
